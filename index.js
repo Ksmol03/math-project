@@ -54,14 +54,14 @@ const createValuesSequence = () => (
         if (useFractions) {
             return ({
                 numerator: numeratorValue,
-                variable: position,
-                denumerator: randInt(0, 3) != 0 ? randInt(2, 7) : 'None'
+                denumerator: randInt(0, 3) != 0 ? randInt(2, 7) : 'None',
+                variable: position
             })
         } else {
             return ({
                 numerator: numeratorValue,
-                variable: position,
-                denumerator: 'None'
+                denumerator: 'None',
+                variable: position
             })
         }
     })
@@ -107,12 +107,26 @@ const splitedEquation = (equation) => {
         ...mathWord,
         numerator: mathWord.numerator * (-1)
     }));
-
-
-    return [leftSide, rightSide];
+    return ({
+        leftSide: leftSide,
+        rightSide: rightSide
+    });
 }
 
-console.log(splitedEquation(createRightValuesSequence()));
-console.log(splitedEquation(createRightValuesSequence()));
-console.log('X = ', X);
-console.log('Y = ', Y);
+//Create system of equations
+const createSystemOfEquations = () => {
+    return(
+        {
+            firstEquation: splitedEquation(createRightValuesSequence()),
+            secondEquation: splitedEquation(createRightValuesSequence()),
+            x: X,
+            y: Y
+        }
+    )
+}
+
+const systemOfEquations = createSystemOfEquations();
+console.log(systemOfEquations.firstEquation);
+console.log(systemOfEquations.secondEquation);
+console.log('X = ', systemOfEquations.x);
+console.log('Y = ', systemOfEquations.y);
