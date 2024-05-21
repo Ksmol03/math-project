@@ -1,76 +1,100 @@
-const randomNumber = (n = 21) => Math.floor(Math.random()*n-Math.floor(n/2));
+const randInt = (min, max) => Math.floor(Math.random() * (max - min) + min);
 
-const x = randomNumber();
-const y = randomNumber();
+const X = randInt(-10, 11);
+const Y = randInt(-10, 11);
+const useFractions = true;
 
-const generateEquationsSide = () => {
-    const amountOfMathWords = Math.floor(Math.random()*3+1);
-    let equation = [];
+//Create varibles placement sequence e.g.: [X, Y, Number, Number, X]
+const createSequence = () => {
+    const sequenceLength = randInt(3, 7);
+    let sequence = [];
 
-    //Setting the lenght of equation
-    for(let i = 0; i < amountOfMathWords; i++) {
-        
-        //Setting numerator and choosing which varrible to use
-        let variableInWord = Math.floor(Math.random()*3);
-        switch (variableInWord) {
-            case 0:
-                equation.push({num: randomNumber(), var: 'x'});
-                break;
-            case 1:
-                equation.push({num: randomNumber(), var: 'y'});
-                break;
-            case 2:
-                equation.push({num: randomNumber(), var: 'none'});
-                break;
-        }
-        
-        //Setting denumerator
-        if (Math.floor(Math.random()*3) == 0) {
-            equation[i].dnum = Math.floor(Math.random()*8+2);
+    //Spread numbers placement through sequence
+    for (let i = 0; i < sequenceLength; i++) {
+        sequence.push('Number');
+    }
+
+    //Spread variable placement function
+    const placeVariable = (variable) => {
+        let positionToPlaceVariable = randInt(0, sequenceLength + 1);
+        if (sequence[positionToPlaceVariable] == 'Number') {
+            sequence[positionToPlaceVariable] = variable;
         } else {
-            equation[i].dnum = 'none';
+            placeVariable(variable);
         }
     }
 
-    return equation;
+    //Spread X's placement
+    const amountOfXs = randInt(1, 3);
+    for (let i = 0; i < amountOfXs; i++) {
+        placeVariable('X');
+    }
+
+    //Spread Y's placement
+    let amountOfYs;
+    if (sequenceLength == 3 && amountOfXs == 2) {
+        amountOfYs = 1;
+    } else {
+        amountOfYs = randInt(1, 3);
+    }
+    for (let i = 0; i < amountOfYs; i++) {
+        placeVariable('Y');
+    }
+
+    return sequence;
 }
 
-const calculateEquationSide = (equation) => {
-    let sum = 0;
-    equation.forEach(word => {
-        let value;
-        //Calculating value of numerator
-        switch (word.var) {
-            case 'x':
-                value = x * word.num;
-                break;
-            case 'y':
-                value = y * word.num;
-                break;
-            case 'none':
-                value = word.num;
-                break;
+//Assign values to variables positions
+const assignValues = (sequence) => (
+    sequence.map(position => {
+        if (useFractions) {
+            return ({
+                numerator: randInt(-10, 11),
+                variable: position,
+                denumerator: randInt(0, 3) != 0 ? randInt(2, 7) : 'None'
+            })
+        } else {
+            return ({
+                numerator: randInt(-10, 11),
+                variable: position,
+                denumerator: 'None'
+            })
         }
-
-        //Calculating value with denumerator
-        if (word.dnum != 'none') {
-            value /= word.dnum;
-        }
-
-        sum += value;
     })
-    return(sum);
+)
+
+//Calculate sequence with values
+const calculateSequence = (sequence) => {
+    return sequence.reduce((sum, mathWord) => {
+        let variableMultiplier;
+        switch (mathWord.variable) {
+            case 'X':
+                variableMultiplier = X;
+                break;
+            case 'Y':
+                variableMultiplier = Y;
+                break;
+            case 'Number':
+                variableMultiplier = 1;
+            break;
+        }
+        let mathWordDenumerator = mathWord.denumerator == 'None' ? 1 : mathWord.denumerator;
+        return sum + mathWord.numerator * variableMultiplier / mathWordDenumerator;
+    }, 0);
 }
 
-console.log('x: ', x);
-console.log('y: ', y );
-const generatedLeftEquation = generateEquationsSide();
-console.log(generatedLeftEquation);
-const calculatedLeftEquation = calculateEquationSide(generatedLeftEquation);
 
-let generatedRightEquation;
+//Find equation that equals 0
+let sum;
+let mathEq;
+let attempts = 0;
 do {
-    generatedRightEquation = generateEquationsSide();
-}  while (calculatedLeftEquation != calculateEquationSide(generatedRightEquation));
+    mathEq = assignValues(createSequence());
+    sum = calculateSequence(mathEq);
+    attempts++;
+} while (sum != 0);
 
-console.log(generatedRightEquation);
+console.log(mathEq);
+console.log('X: ', X);
+console.log('Y: ', Y);
+console.log(`Found in ${attempts} attempts.`);
