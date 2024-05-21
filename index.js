@@ -45,17 +45,21 @@ const createSequence = () => {
 }
 
 //Assign values to variables positions
-const assignValues = (sequence) => (
-    sequence.map(position => {
+const createValuesSequence = () => (
+    createSequence().map(position => {
+        let numeratorValue;
+        do {
+            numeratorValue = randInt(-10, 11);
+        } while (numeratorValue == 0)
         if (useFractions) {
             return ({
-                numerator: randInt(-10, 11),
+                numerator: numeratorValue,
                 variable: position,
                 denumerator: randInt(0, 3) != 0 ? randInt(2, 7) : 'None'
             })
         } else {
             return ({
-                numerator: randInt(-10, 11),
+                numerator: numeratorValue,
                 variable: position,
                 denumerator: 'None'
             })
@@ -83,18 +87,32 @@ const calculateSequence = (sequence) => {
     }, 0);
 }
 
-
 //Find equation that equals 0
-let sum;
-let mathEq;
-let attempts = 0;
-do {
-    mathEq = assignValues(createSequence());
-    sum = calculateSequence(mathEq);
-    attempts++;
-} while (sum != 0);
+const createRightValuesSequence = () => {
+    let sum;
+    let mathEq;
+    do {
+        mathEq = createValuesSequence();
+        sum = calculateSequence(mathEq);
+    } while (sum != 0);
 
-console.log(mathEq);
-console.log('X: ', X);
-console.log('Y: ', Y);
-console.log(`Found in ${attempts} attempts.`);
+    return mathEq;
+}
+
+//Split equation to left and right side
+const splitedEquation = (equation) => {
+    const splitIndex = randInt(1, equation.length - 1);
+    const leftSide = equation.slice(0, splitIndex);
+    const rightSide = equation.slice(splitIndex).map(mathWord => ({
+        ...mathWord,
+        numerator: mathWord.numerator * (-1)
+    }));
+
+
+    return [leftSide, rightSide];
+}
+
+console.log(splitedEquation(createRightValuesSequence()));
+console.log(splitedEquation(createRightValuesSequence()));
+console.log('X = ', X);
+console.log('Y = ', Y);
