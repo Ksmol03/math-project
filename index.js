@@ -101,7 +101,7 @@ const createRightValuesSequence = () => {
 
 //Split equation to left and right side
 const splitedEquation = (equation) => {
-    const splitIndex = randInt(1, equation.length - 1);
+    const splitIndex = randInt(1, equation.length);
     const leftSide = equation.slice(0, splitIndex);
     const rightSide = equation.slice(splitIndex).map(mathWord => ({
         ...mathWord,
