@@ -124,5 +124,3 @@ const createSystemOfEquations = () => {
         }
     )
 }
-
-export default createSystemOfEquations;
