@@ -21,7 +21,9 @@ const createEquaitionSide = (mathWordsObjectsArray) => {
         let absNumerator = Math.abs(mathWord.numerator);
         
         //Remove "1" in front of variable
-        (absNumerator == 1 && mathWord.denumerator == 'None') ? absNumerator = '' : '';
+        if (absNumerator == 1 && mathWord.denumerator == 'None' && mathWord.variable != 'Number') {
+            absNumerator = '';
+        }
 
         if (mathWord.denumerator == 'None') {
             if (mathWord.variable == 'X') {
