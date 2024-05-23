@@ -2,7 +2,7 @@ const randInt = (min, max) => Math.floor(Math.random() * (max - min) + min);
 
 let X;
 let Y;
-const useFractions = true;
+let useFractions = true;
 
 //Create varibles placement sequence e.g.: [X, Y, Number, Number, X]
 const createSequence = () => {
@@ -52,7 +52,7 @@ const createValuesSequence = () => (
             numeratorValue = randInt(-10, 11);
         } while (numeratorValue == 0)
         let denumeratorValue = randInt(2, 7);
-        if (useFractions) {
+        if (useFractions && randInt(0, 3) != 0) {
             return ({
                 numerator: numeratorValue,
                 denumerator: denumeratorValue,

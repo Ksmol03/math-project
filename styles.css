@@ -1,0 +1,15 @@
+#generate-equation-button {
+    display: block;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: rgb(255, 224, 48);
+    font-weight: 600;
+    border-radius: 1rem;
+    border-width: 3px;
+    outline: none;
+}
+
+#generate-equation-button:hover {
+    background-color: rgb(245, 216, 50);
+    cursor: pointer;
+}

@@ -48,12 +48,31 @@ const createEquaitionSide = (mathWordsObjectsArray) => {
     return result;
 }
 
-button.addEventListener('click', () => {
-    const systemOfEquations = createSystemOfEquations();
-    console.log('X = ', systemOfEquations.x);
-    console.log('Y = ', systemOfEquations.y);
+let systemOfEquations = createSystemOfEquations();
 
-    const latexCode = `
+    let latexCode = `
+    \\[
+        \\left\\{
+            \\begin{array}{ll}
+                ${createEquaitionSide(systemOfEquations.firstEquation.leftSide)} = ${createEquaitionSide(systemOfEquations.firstEquation.rightSide)} \\\\ \\\\
+                ${createEquaitionSide(systemOfEquations.secondEquation.leftSide)} = ${createEquaitionSide(systemOfEquations.secondEquation.rightSide)}
+            \\end{array}
+        \\right.
+    \\]`;
+
+    equationDiv.innerHTML = latexCode;
+
+    renderMathInElement(equationDiv, {
+        delimiters: [
+            {left: '\\[', right: '\\]', display: true},
+            {left: '\\(', right: '\\)', display: false}
+          ]
+    });
+
+button.addEventListener('click', () => {
+    systemOfEquations = createSystemOfEquations();
+
+    latexCode = `
     \\[
         \\left\\{
             \\begin{array}{ll}
