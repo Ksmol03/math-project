@@ -122,6 +122,8 @@ const createSystemOfEquations = () => {
         {
             firstEquation: splitedEquation(firstEquation),
             secondEquation: splitedEquation(secondEquation),
+            x: X,
+            y: Y
         }
     )
 }
