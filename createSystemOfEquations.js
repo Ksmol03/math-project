@@ -51,10 +51,11 @@ const createValuesSequence = () => (
         do {
             numeratorValue = randInt(-10, 11);
         } while (numeratorValue == 0)
-        if (useFractions) {
+        let denumeratorValue = randInt(2, 7);
+        if (useFractions && randInt(0, 3) != 0) {
             return ({
                 numerator: numeratorValue,
-                denumerator: randInt(0, 3) != 0 ? randInt(2, 7) : 'None',
+                denumerator: denumeratorValue,
                 variable: position
             })
         } else {
@@ -115,12 +116,12 @@ const splitedEquation = (equation) => {
 
 //Create system of equations
 const createSystemOfEquations = () => {
+    const firstEquation = createRightValuesSequence();
+    const secondEquation = createRightValuesSequence();
     return(
         {
-            firstEquation: splitedEquation(createRightValuesSequence()),
-            secondEquation: splitedEquation(createRightValuesSequence()),
-            x: X,
-            y: Y
+            firstEquation: splitedEquation(firstEquation),
+            secondEquation: splitedEquation(secondEquation),
         }
     )
 }

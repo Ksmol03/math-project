@@ -8,6 +8,8 @@ console.log('Y = ', systemOfEquations.y);
 const createEquaitionSide = (mathWordsObjectsArray) => {
     let result = '';
     mathWordsObjectsArray.map((mathWord, index) => {
+
+        //Adding + or - between math words
         if (index == 0 && mathWord.numerator < 0) {
             result += '-';
         }
@@ -26,10 +28,12 @@ const createEquaitionSide = (mathWordsObjectsArray) => {
                 result += `${absNumerator}`
             }
         } else {
+
+            //Adding fractions to result
             if (mathWord.variable == 'X') {
-                result += `\\frac{${absNumerator}x}{${mathWord.denumerator}}`
+                result += `\\frac{${absNumerator}}{${mathWord.denumerator}}x`
             } else if (mathWord.variable == 'Y') {
-                result += `\\frac{${absNumerator}y}{${mathWord.denumerator}}`
+                result += `\\frac{${absNumerator}}{${mathWord.denumerator}}y`
             } else {
                 result += `\\frac{${absNumerator}}{${mathWord.denumerator}}`
             }
@@ -42,7 +46,7 @@ const latexCode = `
 \\[
     \\left\\{
         \\begin{array}{ll}
-            ${createEquaitionSide(systemOfEquations.firstEquation.leftSide)} = ${createEquaitionSide(systemOfEquations.firstEquation.rightSide)} \\\\
+            ${createEquaitionSide(systemOfEquations.firstEquation.leftSide)} = ${createEquaitionSide(systemOfEquations.firstEquation.rightSide)} \\\\ \\\\
             ${createEquaitionSide(systemOfEquations.secondEquation.leftSide)} = ${createEquaitionSide(systemOfEquations.secondEquation.rightSide)}
         \\end{array}
     \\right.
