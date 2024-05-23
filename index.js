@@ -48,28 +48,11 @@ const createEquaitionSide = (mathWordsObjectsArray) => {
     return result;
 }
 
-let systemOfEquations = createSystemOfEquations();
+//Render System of Equations on html website
+let systemOfEquations;
+let latexCode;
 
-    let latexCode = `
-    \\[
-        \\left\\{
-            \\begin{array}{ll}
-                ${createEquaitionSide(systemOfEquations.firstEquation.leftSide)} = ${createEquaitionSide(systemOfEquations.firstEquation.rightSide)} \\\\ \\\\
-                ${createEquaitionSide(systemOfEquations.secondEquation.leftSide)} = ${createEquaitionSide(systemOfEquations.secondEquation.rightSide)}
-            \\end{array}
-        \\right.
-    \\]`;
-
-    equationDiv.innerHTML = latexCode;
-
-    renderMathInElement(equationDiv, {
-        delimiters: [
-            {left: '\\[', right: '\\]', display: true},
-            {left: '\\(', right: '\\)', display: false}
-          ]
-    });
-
-button.addEventListener('click', () => {
+const renderSystemOfEquations = () => {
     systemOfEquations = createSystemOfEquations();
 
     latexCode = `
@@ -90,4 +73,10 @@ button.addEventListener('click', () => {
             {left: '\\(', right: '\\)', display: false}
           ]
     });
+}
+
+renderSystemOfEquations();
+
+button.addEventListener('click', () => {
+    renderSystemOfEquations();
 });
