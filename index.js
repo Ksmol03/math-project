@@ -6,27 +6,38 @@ console.log(systemOfEquations.secondEquation);
 console.log('X = ', systemOfEquations.x);
 console.log('Y = ', systemOfEquations.y);
 
-const createEquaitionSide = (mathWordsArray) => {
-    mathWordsArray = mathWordsArray.map(mathWord => {
-        if (mathWord.variable == 'X') {
-            return mathWord.numerator + 'x';
-        } else if (mathWord.variable == 'Y') {
-            return mathWord.numerator + 'y';
-        } else {
-            return mathWord.numerator;
+//Create result latex expression
+const createEquaitionSide = (mathWordsObjectsArray) => {
+    let result = '';
+    mathWordsObjectsArray.map((mathWord, index) => {
+        if (index == 0 && mathWord.numerator < 0) {
+            result += '-';
+        }
+        if (index != 0 && mathWord.numerator > 0) {
+            result += '+';
+        } else if (index != 0 && mathWord.numerator < 0) {
+            result += '-';
+        }
+        const absNumerator = Math.abs(mathWord.numerator);
+        if (mathWord.denumerator == 'None') {
+            if (mathWord.variable == 'X') {
+                result += `${absNumerator}x`
+            } else if (mathWord.variable == 'Y') {
+                result += `${absNumerator}y`
+            } else {
+                result += `${absNumerator}`
+            }
         }
     })
-    console.log(mathWordsArray);
+    return result;
 }
-
-createEquaitionSide(systemOfEquations.firstEquation.leftSide);
 
 const latexCode = `
 \\[
     \\left\\{
         \\begin{array}{ll}
-            2 + 2 = 4 \\\\
-            dx + ey = f
+            ${createEquaitionSide(systemOfEquations.firstEquation.leftSide)} = ${createEquaitionSide(systemOfEquations.firstEquation.rightSide)} \\\\
+            ${createEquaitionSide(systemOfEquations.secondEquation.leftSide)} = ${createEquaitionSide(systemOfEquations.secondEquation.rightSide)}
         \\end{array}
     \\right.
 \\]`;
