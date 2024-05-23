@@ -1,8 +1,6 @@
 const equationDiv = document.getElementById('equation');
 
 const systemOfEquations = createSystemOfEquations();
-console.log(systemOfEquations.firstEquation);
-console.log(systemOfEquations.secondEquation);
 console.log('X = ', systemOfEquations.x);
 console.log('Y = ', systemOfEquations.y);
 
@@ -26,6 +24,14 @@ const createEquaitionSide = (mathWordsObjectsArray) => {
                 result += `${absNumerator}y`
             } else {
                 result += `${absNumerator}`
+            }
+        } else {
+            if (mathWord.variable == 'X') {
+                result += `\\frac{${absNumerator}x}{${mathWord.denumerator}}`
+            } else if (mathWord.variable == 'Y') {
+                result += `\\frac{${absNumerator}y}{${mathWord.denumerator}}`
+            } else {
+                result += `\\frac{${absNumerator}}{${mathWord.denumerator}}`
             }
         }
     })
