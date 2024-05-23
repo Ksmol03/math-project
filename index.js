@@ -1,8 +1,5 @@
 const equationDiv = document.getElementById('equation');
-
-const systemOfEquations = createSystemOfEquations();
-console.log('X = ', systemOfEquations.x);
-console.log('Y = ', systemOfEquations.y);
+const button = document.getElementById('generate-equation-button');
 
 //Create result latex expression
 const createEquaitionSide = (mathWordsObjectsArray) => {
@@ -20,6 +17,9 @@ const createEquaitionSide = (mathWordsObjectsArray) => {
         }
         let absNumerator = Math.abs(mathWord.numerator);
         
+        //Change fractions like 3/3 to 1
+        
+
         //Remove "1" in front of variable
         if (absNumerator == 1 && mathWord.denumerator == 'None' && mathWord.variable != 'Number') {
             absNumerator = '';
@@ -48,14 +48,27 @@ const createEquaitionSide = (mathWordsObjectsArray) => {
     return result;
 }
 
-const latexCode = `
-\\[
-    \\left\\{
-        \\begin{array}{ll}
-            ${createEquaitionSide(systemOfEquations.firstEquation.leftSide)} = ${createEquaitionSide(systemOfEquations.firstEquation.rightSide)} \\\\ \\\\
-            ${createEquaitionSide(systemOfEquations.secondEquation.leftSide)} = ${createEquaitionSide(systemOfEquations.secondEquation.rightSide)}
-        \\end{array}
-    \\right.
-\\]`;
+button.addEventListener('click', () => {
+    const systemOfEquations = createSystemOfEquations();
+    console.log('X = ', systemOfEquations.x);
+    console.log('Y = ', systemOfEquations.y);
 
-equationDiv.innerHTML = latexCode;
+    const latexCode = `
+    \\[
+        \\left\\{
+            \\begin{array}{ll}
+                ${createEquaitionSide(systemOfEquations.firstEquation.leftSide)} = ${createEquaitionSide(systemOfEquations.firstEquation.rightSide)} \\\\ \\\\
+                ${createEquaitionSide(systemOfEquations.secondEquation.leftSide)} = ${createEquaitionSide(systemOfEquations.secondEquation.rightSide)}
+            \\end{array}
+        \\right.
+    \\]`;
+
+    equationDiv.innerHTML = latexCode;
+
+    renderMathInElement(equationDiv, {
+        delimiters: [
+            {left: '\\[', right: '\\]', display: true},
+            {left: '\\(', right: '\\)', display: false}
+          ]
+    });
+});

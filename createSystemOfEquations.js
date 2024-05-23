@@ -1,7 +1,5 @@
 const randInt = (min, max) => Math.floor(Math.random() * (max - min) + min);
 
-const X = randInt(-10, 11);
-const Y = randInt(-10, 11);
 const useFractions = true;
 
 //Create varibles placement sequence e.g.: [X, Y, Number, Number, X]
@@ -52,7 +50,7 @@ const createValuesSequence = () => (
             numeratorValue = randInt(-10, 11);
         } while (numeratorValue == 0)
         let denumeratorValue = randInt(2, 7);
-        if (useFractions && randInt(0, 3) != 0) {
+        if (useFractions) {
             return ({
                 numerator: numeratorValue,
                 denumerator: denumeratorValue,
@@ -69,7 +67,7 @@ const createValuesSequence = () => (
 )
 
 //Calculate sequence with values
-const calculateSequence = (sequence) => {
+const calculateSequence = (sequence, X, Y) => {
     return sequence.reduce((sum, mathWord) => {
         let variableMultiplier;
         switch (mathWord.variable) {
@@ -89,12 +87,12 @@ const calculateSequence = (sequence) => {
 }
 
 //Find equation that equals 0
-const createRightValuesSequence = () => {
+const createRightValuesSequence = (X, Y) => {
     let sum;
     let mathEq;
     do {
         mathEq = createValuesSequence();
-        sum = calculateSequence(mathEq);
+        sum = calculateSequence(mathEq, X, Y);
     } while (sum != 0);
 
     return mathEq;
@@ -116,8 +114,10 @@ const splitedEquation = (equation) => {
 
 //Create system of equations
 const createSystemOfEquations = () => {
-    const firstEquation = createRightValuesSequence();
-    const secondEquation = createRightValuesSequence();
+    const X = randInt(-10, 11);
+    const Y = randInt(-10, 11);
+    const firstEquation = createRightValuesSequence(X, Y);
+    const secondEquation = createRightValuesSequence(X, Y);
     return(
         {
             firstEquation: splitedEquation(firstEquation),
