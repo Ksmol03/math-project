@@ -19,7 +19,11 @@ const createLaTeXtext = (systemOfEquations) => {
             let absNumerator = Math.abs(mathWord.numerator);
             
             //Change fractions like 3/3 to 1
-            
+            if (absNumerator == mathWord.denumerator) {
+                absNumerator = 1;
+                mathWord.numerator = 1;
+                mathWord.denumerator = 'None';
+            }
 
             //Remove "1" in front of variable
             if (absNumerator == 1 && mathWord.denumerator == 'None' && mathWord.variable != 'Number') {
@@ -45,6 +49,7 @@ const createLaTeXtext = (systemOfEquations) => {
                     result += `\\frac{${absNumerator}}{${mathWord.denumerator}}`
                 }
             }
+            return mathWord;
         })
         return result;
     }  
