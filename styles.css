@@ -38,3 +38,20 @@ body {
 #inputX, #inputY {
     width: 3rem;
 }
+
+#check-answer-button, #show-answer-button {
+    padding: 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 1rem;
+    border-width: 3px;
+    outline: none;
+}
+
+#check-answer-button {
+    background-color: rgb(134, 253, 134);
+}
+
+#show-answer-button {
+background-color: rgb(253, 134, 134);
+}

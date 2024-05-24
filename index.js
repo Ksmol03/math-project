@@ -1,6 +1,12 @@
 const equationDiv = document.getElementById('equation');
 const button = document.getElementById('generate-equation-button');
 const fractionsCheckbox = document.getElementById('fractions');
+const checkAnswerButton = document.getElementById('check-answer-button');
+const showAnswerButton = document.getElementById('show-answer-button');
+const answerXInput = document.getElementById('inputX');
+const answerYInput = document.getElementById('inputY');
+const checkResponse = document.getElementById('check-response');
+const answerParagraph = document.getElementById('answer-paragraph');
 
 //Render System of Equations on html website
 let systemOfEquations;
@@ -90,4 +96,13 @@ button.addEventListener('click', () => {
 //Turn on and off fractions
 fractionsCheckbox.addEventListener('change', () => {
     useFractions = !useFractions;
+})
+
+checkAnswerButton.addEventListener('click', () => {
+    let response = checkSystemAnswers(systemOfEquations, answerXInput.value, answerYInput.value);
+    if (response) {
+        checkResponse.innerHTML = 'Correct';
+    } else {
+        checkResponse.innerHTML = 'Incorrect'
+    }
 })
