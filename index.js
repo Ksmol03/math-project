@@ -77,14 +77,14 @@ const renderSystemOfEquations = (systemOfEquations, placeToRender) => {
     });
 }
 
+//Render equations on website load
 systemOfEquations = createSystemOfEquations(useFractions);
 renderSystemOfEquations(systemOfEquations, equationDiv);
-console.log(systemOfEquations)
 
+//Render equations on button click
 button.addEventListener('click', () => {
     systemOfEquations = createSystemOfEquations(useFractions);
     renderSystemOfEquations(systemOfEquations, equationDiv);
-    console.log(systemOfEquations)
 });
 
 //Turn on and off fractions

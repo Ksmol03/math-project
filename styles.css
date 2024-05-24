@@ -22,6 +22,19 @@ body {
 #fractions {
     text-align: center;
     display: block;
-    margin: 1rem auto 2rem auto;
+    margin: 1rem auto 3rem auto;
     font-weight: 600;
+}
+
+#answers {
+    margin-top: 3rem;;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 600;
+}
+
+#inputX, #inputY {
+    width: 3rem;
 }
