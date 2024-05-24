@@ -31,6 +31,11 @@ renderSystemOfEquations(createLaTeXtext(systemOfEquations), equationDiv);
 button.addEventListener('click', () => {
     systemOfEquations = createSystemOfEquations(useFractions);
     renderSystemOfEquations(createLaTeXtext(systemOfEquations), equationDiv);
+    answerXInput.value = '';
+    answerYInput.value = '';
+    checkResponse.innerHTML = '';
+    answerParagraph.innerHTML = '';
+    
 });
 
 //Turn on and off fractions
@@ -38,11 +43,17 @@ fractionsCheckbox.addEventListener('change', () => {
     useFractions = !useFractions;
 })
 
+//Show answer check response
 checkAnswerButton.addEventListener('click', () => {
     let response = checkSystemAnswers(systemOfEquations, answerXInput.value, answerYInput.value);
-    if (response) {
-        checkResponse.innerHTML = 'Correct';
+    if (response && answerXInput.value != '' && answerYInput.value != '') {
+        checkResponse.innerHTML = 'Correct!';
     } else {
-        checkResponse.innerHTML = 'Incorrect'
+        checkResponse.innerHTML = 'Incorrect!'
     }
+})
+
+//Show answer
+showAnswerButton.addEventListener('click', () => {
+    answerParagraph.innerHTML = `x = ${systemOfEquations.x}; y = ${systemOfEquations.y}`
 })

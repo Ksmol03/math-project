@@ -48,10 +48,30 @@ body {
     outline: none;
 }
 
+#check-answer-button, #show-answer-button {
+    cursor: pointer;
+}
+
+#check-answer-button:hover {
+    background-color: rgb(126, 235, 126);
+}
+
+#show-answer-button:hover {
+    background-color: rgb(235, 126, 126);
+}
+
 #check-answer-button {
     background-color: rgb(134, 253, 134);
 }
 
 #show-answer-button {
-background-color: rgb(253, 134, 134);
+    display: block;
+    margin: 0 auto;
+    background-color: rgb(253, 134, 134);
+}
+
+p {
+    height: 1rem;
+    text-align: center;
+    margin-bottom: 2rem;
 }
