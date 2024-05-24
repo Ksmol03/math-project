@@ -25,13 +25,11 @@ const renderSystemOfEquations = (latexText, placeToRender) => {
 
 //Render equations on website load
 systemOfEquations = createSystemOfEquations(useFractions);
-console.log(systemOfEquations);
 renderSystemOfEquations(createLaTeXtext(systemOfEquations), equationDiv);
 
 //Render equations on button click
 button.addEventListener('click', () => {
     systemOfEquations = createSystemOfEquations(useFractions);
-    console.log(systemOfEquations);
     renderSystemOfEquations(createLaTeXtext(systemOfEquations), equationDiv);
     answerXInput.value = '';
     answerYInput.value = '';
